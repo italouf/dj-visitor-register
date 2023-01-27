@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from visitantes.models import Visitante
 from visitantes.forms import VisitanteForm
 from django.contrib import messages
+
 
 def registrar_visitante(request):
     
@@ -29,3 +31,14 @@ def registrar_visitante(request):
     }
 
     return render(request, "registrar_visitante.html", context)
+
+def informacoes_visitante(request, id):
+
+    visitante = get_object_or_404(Visitante, id=id)
+
+    context = {
+        "nome_pagina": "Informações de visitante",
+        "visitante": visitante,
+    }
+
+    return render(request, "informacoes_visitante.html", context)
