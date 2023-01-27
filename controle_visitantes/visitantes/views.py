@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from visitantes.forms import VisitanteForm
+from django.contrib import messages
 
 def registrar_visitante(request):
     
@@ -13,6 +14,11 @@ def registrar_visitante(request):
 
             visitante.registrado_por = request.user.porteiro
             visitante.save()
+
+            messages.success(
+                request, 
+                "Visitante registrado com sucesso"
+            )
 
             return redirect("index")
 

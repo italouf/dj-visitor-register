@@ -16,6 +16,18 @@
 
             <p class="mb-5 ml-1">O asterisco indica campo obrigatório</p>
 
+            {% if forms.errors %}
+                {% for field in form %}
+                    {% if field.errors %}
+                        {% for error in field.errors %} 
+                            <div class="alert alert-warning" role="alert">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
             <form method="post">
                 <div class="form-row">
                     {% csrf_token %}
