@@ -1,6 +1,8 @@
 {% extends "base.html" %}
-
+{% load widget_tweaks %}
 {% block conteudo %}
+
+
 <div class="container">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
@@ -12,19 +14,23 @@
                 Formulário para registro de novo visitante
             </h4>
 
-            <form method="post" enctype="multipart/form-data">
-                <div class="form-row">
-                    <p class="ml-2">Aqui deveria ter um formulário</p>
-                </div>
+            <p class="mb-5 ml-1">O asterisco indica campo obrigatório</p>
 
-                <div class="text-right">
-                    <button class="btn btn-primary" type="submit">
-                        <span class="text">Registrar visitante</span>
-                    </button>
+            <form method="post">
+                <div class="form-row">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                        <div class="form-group col-md-12">
+                            <label>{{ field.label }} {% if field.field.required %} * {% endif %} </label>
+                            {% render_field field placeholder=field.label class="form-control" %}
+                        </div>
+                    {% endfor %}
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-{% endblock conteudo %}
+
+{% endblock conteudo%}
